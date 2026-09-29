@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Java M3 & M4 Code Guide</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#182238;--muted:#66738a;--line:#e3e8f0;--blue:#315efb;--purple:#6947e8;--code:#111827;--out:#0b1220;--shadow:0 10px 30px rgba(30,45,75,.08)}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 Inter,Segoe UI,Roboto,Arial,sans-serif}
+.hero{background:linear-gradient(135deg,#17213c,#315efb 62%,#6947e8);color:#fff;padding:52px 22px 44px} .heroin{max-width:1180px;margin:auto}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.85} h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:10px 0} .hero p{max-width:850px;color:#eaf0ff;margin:0}
+.toolbar{position:sticky;top:0;z-index:10;background:rgba(244,247,251,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 0}
+.tools{max-width:1180px;margin:auto;padding:0 22px;display:flex;gap:9px;flex-wrap:wrap} input{flex:1;min-width:240px;border:1px solid var(--line);border-radius:11px;padding:11px 13px;background:#fff;font-size:14px;outline:none} input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #315efb18}
+button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer;color:var(--text)} button.active{background:var(--blue);color:#fff;border-color:var(--blue)} .copy{background:#eef2ff;color:var(--blue);border-color:#dce4ff}
+.wrap{max-width:1180px;margin:auto;padding:24px 22px} .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px} .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow)} .stat b{font-size:25px;display:block} .stat span{color:var(--muted);font-size:13px}
+.note{background:#fff8e7;border:1px solid #f0d895;border-radius:13px;padding:14px 16px;margin-bottom:22px;color:#634d16} code{font-family:Consolas,"Cascadia Code",monospace}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px} .head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;padding:22px 22px 12px} .badge{display:inline-block;background:#edf2ff;color:var(--blue);padding:4px 8px;border-radius:7px;font-size:11px;font-weight:900;letter-spacing:.08em} h2{font-size:23px;margin:8px 0 0} .sub{color:var(--muted);font-weight:650} .topic{margin:0 22px 18px;padding:9px 12px;border-radius:10px;background:#f5f7ff;color:#455578;font-weight:750;font-size:13px}
+.section{padding:0 22px 22px} h3{font-size:16px;margin:0 0 9px} .section p{margin:0;color:#3f4c62} ol{margin:0;padding-left:23px;color:#3f4c62}
+.codebox,.output{border-radius:12px;overflow:auto} .codebox{background:var(--code);color:#e7edf7} pre{margin:0;padding:18px;font:13px/1.65 Consolas,"Cascadia Code","SFMono-Regular",monospace;white-space:pre;tab-size:4} .output{background:var(--out);color:#dce7fa}
+footer{text-align:center;color:var(--muted);padding:20px 20px 45px;font-size:13px}
+@media(max-width:700px){.stats{grid-template-columns:1fr}.head{flex-direction:column}.copy{width:100%}.wrap{padding:16px}.tools{padding:0 16px}}
+</style></head>
+<body>
+<header class="hero"><div class="heroin"><div class="kicker">Java • CO3 / CO4 • M3 / M4</div><h1>Module 3 & Module 4 Code Guide</h1><p>All relevant Java source programs from the supplied ZIP, with clean formatting, concept mapping, code explanation, and output.</p></div></header>
+<div class="toolbar"><div class="tools"><input id="search" placeholder="Search filename, topic, or concept..." oninput="filterCards()"><button class="active" onclick="setFilter('ALL',this)">All</button><button onclick="setFilter('M3',this)">Module 3</button><button onclick="setFilter('M4',this)">Module 4</button></div></div>
+<main class="wrap">
+<div class="stats"><div class="stat"><b>5</b><span>Module 3 / CO3 programs</span></div><div class="stat"><b>7</b><span>Module 4 / CO4 programs</span></div><div class="stat"><b>12</b><span>Total programs included</span></div></div>
+<div class="note"><b>Important:</b> The page uses the exact source code from the ZIP. In <b>ExceptionHandling.java</b>, <code>Integer.parseInt("123")</code> is labelled as a NumberFormatException example but actually succeeds. In <b>MultipleFileOperations.java</b>, the code writes to <code>Students.txt</code> but reads <code>Student.txt</code>, so the actual output can contain a FileNotFoundException message depending on the files present.</div>
+
+<section class="card" data-module="M3" data-search="demo20.java inheritance using extends extends · inheritance · is-a relationship">
+<div class="head"><div><span class="badge">M3 / CO3</span><h2>Demo20.java</h2><div class="sub">Inheritance using extends</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">extends · inheritance · IS-A relationship</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates a superclass (Animal) and subclass (Dog). Dog inherits eat() from Animal and also has its own bark() method.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>// inheritance concepts
+class Animal{
+    void eat(){
+        System.out.println(&quot;Animal is eating&quot;);
+    }
+}
+class Dog extends Animal{
+    void bark(){
+        System.out.println(&quot;Dog is Barking&quot;);
+    }
+}
+public class Demo20 {
+    public static void main(String[] args) {
+        Animal a=new Animal();
+        Dog d=new Dog();
+        System.out.println(&quot;this is output from parent class : &quot;);
+        a.eat();
+        System.out.println(&quot;this below output from child class : &quot;);
+        d.bark();
+        d.eat();
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>Animal is the parent class and defines eat().</li><li>Dog extends Animal, so Dog inherits eat().</li><li>a is an Animal object and calls a.eat().</li><li>d is a Dog object and calls its own bark().</li><li>d.eat() works because eat() is inherited from Animal.</li><li>This demonstrates the IS-A relationship: Dog IS-A Animal.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>this is output from parent class : 
+Animal is eating
+this below output from child class : 
+Dog is Barking
+Animal is eating</pre></div></div>
+</section>
+<section class="card" data-module="M3" data-search="demo21.java inheritance and inherited members extends · inherited fields and methods · is-a relationship">
+<div class="head"><div><span class="badge">M3 / CO3</span><h2>Demo21.java</h2><div class="sub">Inheritance and inherited members</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">extends · inherited fields and methods · IS-A relationship</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Shows how a subclass can use fields and methods inherited from its superclass while also having its own fields and methods.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>class Employee{
+    String name;
+    double salary;
+    void displayEmployee(){
+        System.out.println(&quot;name is :&quot;+name);
+        System.out.println(&quot;salary is :&quot;+salary);
+    }
+}
+class department extends Employee{
+    String department;
+    void displayDepartment(){
+        System.out.println(&quot;name:&quot;+department);
+    }
+}
+public class Demo21{
+    public static void main(String[] args) {
+        Employee emp = new Employee();
+        department dept = new department();
+        emp.name=&quot;gagan&quot;;
+        emp.salary=10000;
+        System.out.println(&quot;-------------------------&quot;);
+        System.out.println(&quot;the below is given with employee and method in employee class&quot;);
+        emp.displayEmployee();
+        dept.department=&quot;IT&quot;;
+        System.out.println(&quot;-------------------------&quot;);
+        System.out.println(&quot;only using dept and dept method is given below&quot;);
+        dept.displayDepartment();
+        dept.name=&quot;b1&quot;;
+        dept.salary=10000;
+        dept.department=&quot;IT1&quot;;
+        System.out.println(&quot;-------------------------&quot;);
+        System.out.println(&quot;giving input using dept for employee class and calling also using dept class is given below: &quot;);
+        dept.displayEmployee();
+        dept.displayDepartment();
+
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>Employee contains name, salary, and displayEmployee().</li><li>department extends Employee, so it inherits those members.</li><li>department adds its own department field and displayDepartment().</li><li>dept.displayEmployee() is valid even though the method is declared in Employee.</li><li>This demonstrates that a child object can use inherited parent functionality.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>-------------------------
+the below is given with employee and method in employee class
+name is :gagan
+salary is :10000.0
+-------------------------
+only using dept and dept method is given below
+name:IT
+-------------------------
+giving input using dept for employee class and calling also using dept class is given below: 
+name is :b1
+salary is :10000.0
+name:IT1</pre></div></div>
+</section>
+<section class="card" data-module="M3" data-search="demo22.java super() and parent constructor super() · parent constructor · constructor chaining">
+<div class="head"><div><span class="badge">M3 / CO3</span><h2>Demo22.java</h2><div class="sub">super() and parent constructor</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">super() · parent constructor · constructor chaining</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates super() being used to call the no-argument constructor of the immediate parent class.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>class Animal1{
+    Animal1() {
+        System.out.println(&quot;I am an animal&quot;);
+    }
+}
+class dog1 extends Animal1{
+    dog1(){
+        super();
+        System.out.println(&quot;I am a dog&quot;);
+    }
+}
+public class Demo22 {
+    public static void main(String[] args) {
+        dog1 d=new dog1();
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>Animal1() is the parent constructor.</li><li>dog1() is the child constructor.</li><li>When new dog1() is executed, the child constructor starts.</li><li>super() calls Animal1().</li><li>The parent constructor executes before the child constructor body.</li><li>This demonstrates constructor chaining through inheritance.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>I am an animal
+I am a dog</pre></div></div>
+</section>
+<section class="card" data-module="M3" data-search="demo23.java parameterized super() super(argument) · parameterized parent constructor">
+<div class="head"><div><span class="badge">M3 / CO3</span><h2>Demo23.java</h2><div class="sub">Parameterized super()</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">super(argument) · parameterized parent constructor</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates super(&quot;animal&quot;) calling a parameterized constructor in the parent class.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>class Animal2{
+    Animal2(){
+        System.out.println(&quot;I am a dog&quot;);
+    }
+    Animal2(String type){
+        System.out.println(&quot;Type : &quot;+ type);
+    }
+}
+class dog2 extends Animal2{
+    dog2(){
+        //super() -- if this is written this calls with a no argument constructor
+        super(&quot;animal&quot;);
+        //super() should be given right after method creation in a class
+        System.out.println(&quot;I am a dog&quot;);
+
+    }
+}
+public class Demo23 {
+    public static void main(String[] args) {
+        dog2 d=new dog2();
+
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>Animal2 has both a no-argument and a parameterized constructor.</li><li>dog2 extends Animal2.</li><li>Inside dog2(), super(&quot;animal&quot;) explicitly selects Animal2(String type).</li><li>The value &quot;animal&quot; is passed to the parent constructor.</li><li>The parent constructor prints first, followed by the child constructor.</li><li>The super(...) call is placed first in the child constructor, as required.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>Type : animal
+I am a dog</pre></div></div>
+</section>
+<section class="card" data-module="M3" data-search="demo24.java method overriding and super.display() method overriding · super.method()">
+<div class="head"><div><span class="badge">M3 / CO3</span><h2>Demo24.java</h2><div class="sub">Method overriding and super.display()</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">method overriding · super.method()</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates method overriding: dog3 defines its own display() method and can also explicitly call the parent&#x27;s version with super.display().</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>class Animal3{
+    public void display(){
+        System.out.println(&quot;I am an animal&quot;);
+    }
+}
+class dog3 extends Animal3{
+    //method overriding -- means writing the same method that is there in parent class in child class
+    public void display(){
+        System.out.println(&quot;I am a dog&quot;);
+    }
+    public void printmessage(){
+        display();
+        super.display();
+    }
+}
+public class Demo24 {
+    public static void main(String[] args) {
+        dog3 d=new dog3();
+        d.printmessage();
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>Animal3 defines display() which prints I am an animal.</li><li>dog3 extends Animal3.</li><li>dog3 defines another display() with the same signature, so it overrides the parent method.</li><li>display() inside printmessage() calls the child version.</li><li>super.display() explicitly calls the parent version.</li><li>This is a direct example of overriding and parent-method access.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>I am a dog
+I am an animal</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="exceptionhandling.java exception handling and multiple catch blocks try-catch · exception examples · multiple catch">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>ExceptionHandling.java</h2><div class="sub">Exception handling and multiple catch blocks</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">try-catch · exception examples · multiple catch</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates try-catch with ArithmeticException, ArrayIndexOutOfBoundsException, NumberFormatException, NullPointerException, and multiple catch blocks.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.lang.*;
+
+public class ExceptionHandling {
+    public static void main(String[] args) {
+        System.out.println(&quot;------------&quot;);
+        System.out.println(&quot;below is the exception for dividing a number by 0 - ArithemeticException&quot;);
+
+        try{
+            int a=10;
+            int b=0;
+            int result=a/b;
+            System.out.println(&quot;result is &quot;+result);
+        }
+        catch(ArithmeticException e){
+            System.out.println(&quot;cannot divide by zero&quot;);
+        }
+        System.out.println(&quot;here the program continues &quot;);
+        System.out.println(&quot;------------&quot;);
+        System.out.println(&quot;below is the exception for retreiving element of index not present in array - ArrayIndexOutOfBoundsException&quot;);
+
+        try{
+            int[] nums={1,2,3,4,5};
+            System.out.print(&quot;element in eight index is &quot;+nums[8]);
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println(&quot;Array index selected out of bounds&quot;);
+        }
+
+        System.out.println(&quot;here the program continues &quot;);
+        System.out.println(&quot;------------&quot;);
+        System.out.println(&quot;below is the exception for converting string to integer using parseint - NumberFormatException&quot;);
+        try{
+            String b=&quot;123&quot;;
+            int result=Integer.parseInt(b);
+            System.out.println(&quot;result is &quot;+result);
+        }
+        catch (NumberFormatException e){
+            System.out.println(&quot;Number format exception&quot;);
+
+        }
+        System.out.println(&quot;------------&quot;);
+        System.out.println(&quot;below is the exception for null pointer exception handling - NullPointerException&quot;);
+
+        String name=null;
+
+        try{
+            System.out.println(name.length());
+        }
+        catch (NullPointerException e){
+            System.out.println(&quot;NullPointerException&quot;);
+        }
+        System.out.println(&quot;------------&quot;);
+        System.out.println(&quot;below is the exception for multiple catch blocks &quot;);
+        try{
+            int[] nums={1,2,3,4,5};
+            int a=10;
+            int b=0;
+            int result=a/b;
+            System.out.println(&quot;result is &quot;+result);
+            System.out.println(&quot;9th element is  &quot;+nums[9]);
+        }
+        catch (ArithmeticException e) {
+            System.out.println(&quot;Arithmetic exception&quot;);
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println(&quot;Array index selected out of bounds&quot;);
+        }
+    }
+}</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>10 / 0 throws ArithmeticException, which is caught.</li><li>Accessing nums[8] throws ArrayIndexOutOfBoundsException, which is caught.</li><li>Integer.parseInt(&quot;123&quot;) actually succeeds, so no NumberFormatException occurs in this exact code; it prints result is 123.</li><li>Calling name.length() when name is null throws NullPointerException.</li><li>The final try contains two possible errors, but 10 / 0 happens first, so the ArithmeticException catch executes and the array access is never reached.</li><li>After each caught exception, program execution continues with the following statements.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>------------
+below is the exception for dividing a number by 0 - ArithemeticException
+cannot divide by zero
+here the program continues 
+------------
+below is the exception for retreiving element of index not present in array - ArrayIndexOutOfBoundsException
+Array index selected out of bounds
+here the program continues 
+------------
+below is the exception for converting string to integer using parseint - NumberFormatException
+result is 123
+------------
+below is the exception for null pointer exception handling - NullPointerException
+NullPointerException
+------------
+below is the exception for multiple catch blocks 
+Arithmetic exception</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="try.java try-catch-finally and input exceptions try-catch-finally · arithmeticexception · inputmismatchexception">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>Try.java</h2><div class="sub">try-catch-finally and input exceptions</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">try-catch-finally · ArithmeticException · InputMismatchException</div>
+<div class="section"><h3>Definition / Purpose</h3><p>A safe division calculator using Scanner. It handles division by zero with ArithmeticException, invalid input with InputMismatchException, and closes the Scanner in finally.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Try {
+
+    public static void main(String[] args) {
+        // Create a Scanner object to read user input from the console
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(&quot;=== Safe Division Calculator ===&quot;);
+
+        try {
+            // 1. Get the dividend
+            System.out.print(&quot;Enter the dividend (e.g., 10): &quot;);
+            int dividend = scanner.nextInt();
+
+            // 2. Get the divisor
+            System.out.print(&quot;Enter the divisor (e.g., 0): &quot;);
+            int divisor = scanner.nextInt();
+
+            // 3. Perform the division
+            int result = dividend / divisor;
+            System.out.println(&quot;\n✅ Success! Result: &quot; + dividend + &quot; / &quot; + divisor + &quot; = &quot; + result);
+
+        } catch (ArithmeticException e) {
+            // Catches division-by-zero errors using System.out
+            System.out.println(&quot;\n❌ Math Error: Cannot divide by zero!&quot;);
+            System.out.println(&quot;Details: &quot; + e.getMessage());
+
+        } catch (InputMismatchException e) {
+            // Catches non-integer inputs using System.out
+            System.out.println(&quot;\n❌ Input Error: Please enter valid whole numbers (integers) only.&quot;);
+        } finally {
+            // Always close the scanner resource
+            scanner.close();
+            System.out.println(&quot;\n=== Scanner closed. Program finished. ===&quot;);
+        }
+    }
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>A Scanner reads two integers from the user.</li><li>The division is performed inside try.</li><li>If the divisor is zero, Java throws ArithmeticException.</li><li>If the user enters something that is not an integer, nextInt() throws InputMismatchException.</li><li>finally executes after the try/catch processing and closes the Scanner.</li><li>The exact success/error output depends on the user&#x27;s input.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>Example run with input 10 and 2:
+=== Safe Division Calculator ===
+Enter the dividend (e.g., 10): 10
+Enter the divisor (e.g., 0): 2
+
+Success! Result: 10 / 2 = 5
+
+=== Scanner closed. Program finished. ===
+
+Example run with input 10 and 0:
+=== Safe Division Calculator ===
+Enter the dividend (e.g., 10): 10
+Enter the divisor (e.g., 0): 0
+
+❌ Math Error: Cannot divide by zero!
+Details: / by zero
+
+=== Scanner closed. Program finished. ===</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="createfile.java creating a file with file and ioexception file.createnewfile() · ioexception">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>CreateFile.java</h2><div class="sub">Creating a file with File and IOException</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">File.createNewFile() · IOException</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Creates Student.txt using File.createNewFile() and handles possible IOException.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.io.File;
+import java.io.IOException;
+
+
+public class CreateFile {
+	public static void main(String[] args){
+		try{
+			File f=new File(&quot;Student.txt&quot;);
+			if(f.createNewFile()){
+				System.out.println(&quot;File created&quot;);
+
+			}
+			else{
+				System.out.println(&quot;File already exists&quot;);
+			}
+		}
+		catch(IOException e){
+			System.out.println(&quot;An error occurred.&quot;);
+		}
+	}
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>new File(&quot;Student.txt&quot;) creates a File object representing the path.</li><li>createNewFile() attempts to create the physical file.</li><li>If creation succeeds, it returns true and prints File created.</li><li>If the file already exists, it returns false and prints File already exists.</li><li>IOException is caught if a file-system problem occurs.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>If Student.txt does not exist:
+File created
+
+If Student.txt already exists:
+File already exists</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="writefile.java writing text using filewriter filewriter · writing · ioexception">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>WriteFile.java</h2><div class="sub">Writing text using FileWriter</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">FileWriter · writing · IOException</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Writes two lines of text to Student.txt using FileWriter.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteFile {
+	public static void main(String[] args){
+		try{
+			FileWriter fw=new FileWriter(&quot;Student.txt&quot;);
+			fw.write(&quot;name:gagan\n&quot;);
+			fw.write(&quot;marks:95\n&quot;);
+			fw.close();
+			System.out.println(&quot;Data written successfully&quot;);
+		}
+		catch (IOException e){
+			System.out.println(&quot;error writing to file&quot;);
+		}
+	}
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>FileWriter(&quot;Student.txt&quot;) opens the file for writing.</li><li>The first write() stores name:gagan.</li><li>The second write() stores marks:95.</li><li>\n moves to a new line.</li><li>close() closes the writer.</li><li>If an I/O problem occurs, IOException is caught.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>Console:
+Data written successfully
+
+Student.txt contents:
+name:gagan
+marks:95</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="appendfile.java appending text with filewriter(..., true) filewriter append mode · ioexception">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>AppendFile.java</h2><div class="sub">Appending text with FileWriter(..., true)</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">FileWriter append mode · IOException</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Adds text to the end of Student.txt without replacing its existing contents.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+public class AppendFile {
+	public static void main(String[] args){
+		try{
+			FileWriter fw=new FileWriter(&quot;Student.txt&quot;,true);
+			fw.write(&quot;Course:CSE&quot;);
+			fw.close();
+			System.out.println(&quot;Data appended successfully&quot;);
+
+		}
+		catch(IOException e){
+			System.out.println(&quot;An error occurred.&quot;);
+		}
+	}
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>new FileWriter(&quot;Student.txt&quot;, true) opens the file in append mode.</li><li>The true argument enables appending.</li><li>Course:CSE is added after existing content.</li><li>The writer is closed.</li><li>IOException handles file-related errors.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>Console:
+Data appended successfully
+
+If the file previously contained:
+name:gagan
+marks:95
+
+After this program:
+name:gagan
+marks:95
+Course:CSE</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="readfile.java reading text using filereader filereader · reading · ioexception">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>ReadFile.java</h2><div class="sub">Reading text using FileReader</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">FileReader · reading · IOException</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Reads Student.txt character by character using FileReader and prints the characters.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadFile{
+	public static void main(String[] args){
+		try{
+			FileReader fr=new FileReader(&quot;Student.txt&quot;);
+			int ch;
+			while((ch=fr.read())!=-1){
+				System.out.print((char)ch);
+			}
+			fr.close();
+		}
+		catch (IOException e){
+			System.out.println(&quot;error occured reading a file&quot;);
+		}
+	}
+}
+
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>FileReader opens Student.txt.</li><li>read() returns one character at a time as an integer.</li><li>The loop continues until read() returns -1, meaning end of file.</li><li>(char) ch converts the integer character value back to a character.</li><li>close() closes the reader.</li><li>IOException handles file-reading errors.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>If Student.txt contains:
+name:gagan
+marks:95
+Course:CSE
+
+the console displays:
+name:gagan
+marks:95
+Course:CSE</pre></div></div>
+</section>
+<section class="card" data-module="M4" data-search="multiplefileoperations.java multiple file operations in one program create · exists · path · size · permissions · write · append · read · delete">
+<div class="head"><div><span class="badge">M4 / CO4</span><h2>MultipleFileOperations.java</h2><div class="sub">Multiple file operations in one program</div></div><button class="copy" onclick="copyCode(this)">Copy code</button></div>
+<div class="topic">create · exists · path · size · permissions · write · append · read · delete</div>
+<div class="section"><h3>Definition / Purpose</h3><p>Demonstrates file creation, existence checking, filename/path information, size and permissions, writing, appending, reading, and deletion.</p></div>
+<div class="section"><h3>Code</h3><div class="codebox"><pre><code>import java.io.*;
+
+public class MultipleFileOperations {
+	public static void main(String[] args){
+		File file=new File(&quot;Students.txt&quot;);
+		try {
+			//1.create a new file
+			if (file.createNewFile()) {
+				System.out.println(&quot;File created&quot;);
+			} else {
+				System.out.println(&quot;File already exists&quot;);
+			}
+			//2. check whether a file exists
+			System.out.println(&quot;2.File Exists()&quot; + file.exists());
+			//3. get file name
+			System.out.println(&quot;3.File Exists()&quot; + file.getName());
+			//4.Get absolute path
+			System.out.println(&quot;4.File Path()&quot; + file.getAbsolutePath());
+			//5.file size
+			System.out.println(&quot;5.File Size()&quot; + file.length());
+			//6.check read permissions
+			System.out.println(&quot;6.read permissions()&quot; + file.canRead());
+			//7.check write permission
+			System.out.println(&quot;7.write permssion()&quot; + file.canWrite());
+			//8.write data into file
+			FileWriter fw = new FileWriter(&quot;Students.txt&quot;, true);
+			fw.write(&quot;Name:Gagan Kumar\n&quot;);
+			fw.write(&quot;Department:CSIT\n&quot;);
+			fw.write(&quot;University:Kl university\n&quot;);
+			fw.write(&quot;Subject:java\n&quot;);
+			fw.close();
+			System.out.println(&quot;Data added successfully&quot;);
+			//9.Append data into file
+			FileWriter append = new FileWriter(&quot;Students.txt&quot;, true);
+			append.write(&quot;Topic:File Handling\n&quot;);
+			append.close();
+			System.out.println(&quot;Data appended successfully&quot;);
+			//10.Read data from file
+			BufferedReader br = new BufferedReader(new FileReader(&quot;Student.txt&quot;));
+			String line;
+			System.out.println(&quot;\n10.File contents:&quot;);
+			while ((line = br.readLine()) != null) {
+				System.out.println(line);
+			}
+			br.close();
+			//11.Get updated file size
+			System.out.println(&quot;11.Updated file size&quot; + file.length() + &quot;bytes&quot;);
+			//12.Delete file
+			if (file.delete()){
+				System.out.println(&quot;File deleted successfully&quot;);
+			}
+			else{
+				System.out.println(&quot;Error deleting file&quot;);
+			}
+
+
+		}
+		catch(IOException e){
+			System.out.println(&quot;An error occurred.&quot;+e.getMessage());
+		}
+
+	}
+}
+</code></pre></div></div>
+<div class="section"><h3>Code Explanation</h3><ol><li>File file = new File(&quot;Students.txt&quot;) represents Students.txt.</li><li>createNewFile() creates the file if needed.</li><li>exists(), getName(), getAbsolutePath(), length(), canRead(), and canWrite() inspect the file.</li><li>A FileWriter appends student data to Students.txt.</li><li>Another FileWriter appends the topic.</li><li>A BufferedReader attempts to read Student.txt, not Students.txt.</li><li>This is an important filename mismatch in the supplied code: the program writes to Students.txt but reads Student.txt.</li><li>If Student.txt does not exist, the read step throws FileNotFoundException (an IOException), the catch block prints the error, and execution skips the remaining statements in the try block.</li><li>If Student.txt does exist, it reads that file instead.</li><li>Because deletion is after the read, it is reached only when no exception occurs before it.</li></ol></div>
+<div class="section"><h3>Output</h3><div class="output"><pre>Typical run when Students.txt is new and Student.txt does not exist:
+
+File created
+2.File Existstrue
+3.File ExistsStudents.txt
+4.File Path[absolute path to Students.txt]
+5.File Size0
+6.read permissionstrue
+7.write permssiontrue
+Data added successfully
+Data appended successfully
+An error occurred.Student.txt (The system cannot find the file specified)
+
+The exact absolute path, file size, and FileNotFoundException message are environment-dependent.
+
+Important: the supplied code has a mismatch:
+writes to Students.txt but reads Student.txt.</pre></div></div>
+</section>
+</main>
+<footer>Java M3 / M4 study page • Standalone HTML • 12 source programs</footer>
+<script>
+let current="ALL";
+function setFilter(f,b){current=f;document.querySelectorAll(".tools button").forEach(x=>x.classList.remove("active"));b.classList.add("active");filterCards()}
+function filterCards(){let q=document.getElementById("search").value.toLowerCase().trim();document.querySelectorAll(".card").forEach(c=>c.style.display=((current==="ALL"||c.dataset.module===current)&&(!q||c.dataset.search.includes(q)))?"":"none")}
+async function copyCode(btn){let code=btn.closest(".card").querySelector("code").innerText;try{await navigator.clipboard.writeText(code);btn.textContent="Copied!";setTimeout(()=>btn.textContent="Copy code",1200)}catch(e){btn.textContent="Copy failed";setTimeout(()=>btn.textContent="Copy code",1200)}}
+</script>
+</body></html>
